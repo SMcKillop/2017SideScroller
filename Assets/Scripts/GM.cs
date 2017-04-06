@@ -5,10 +5,10 @@ using System.Collections;
 public class GM : MonoBehaviour {
 
     private int _Lives = 3;
-    public int points;
+    private int _Points;
+
     public Text livesValue;
     public Text pointsValue;
-
     public GameObject gameOverSign;
 
     public void SetLives(int newValue)
@@ -18,17 +18,23 @@ public class GM : MonoBehaviour {
         livesValue.text = _Lives.ToString();
         if (_Lives == 0)
         {
-            DoGameOver();
+            gameOverSign.SetActive(true);
         }
     }
-
-    void DoGameOver()
-    {
-        gameOverSign.SetActive(true);
-    }
-
     public int GetLives()
     {
         return _Lives;
     }
+
+    public void SetPoints(int newValue)
+    {
+        _Points = newValue;
+        pointsValue.text = _Points.ToString();
+    }
+
+    public int GetPoints()
+    {
+        return _Points;
+    }
+
 }
