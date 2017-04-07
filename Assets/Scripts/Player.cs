@@ -51,4 +51,5 @@ public class Player : MonoBehaviour {
         transform.position = startingPosition;
         Debug.Log("You are out!");
     }
+   
 }

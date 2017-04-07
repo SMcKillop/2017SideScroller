@@ -28,7 +28,7 @@ public class GM : MonoBehaviour {
 
     public void SetPoints(int newValue)
     {
-        _Points = newValue;
+        _Points += newValue;
         pointsValue.text = _Points.ToString();
     }
 
