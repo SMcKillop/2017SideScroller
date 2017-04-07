@@ -5,7 +5,7 @@ using System.Collections;
 public class GM : MonoBehaviour {
 
     private int _Lives = 3;
-    private int _Points;
+    private int _Points = 0;
 
     public Text livesValue;
     public Text pointsValue;
@@ -28,7 +28,8 @@ public class GM : MonoBehaviour {
 
     public void SetPoints(int newValue)
     {
-        _Points += newValue;
+        _Points = newValue;
+        Debug.Log("Points are now:" + _Points);
         pointsValue.text = _Points.ToString();
     }
 

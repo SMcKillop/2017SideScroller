@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Coin : MonoBehaviour {
 
-    public int points = 1;
+    public int pointsValue;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour {
         if (player != null)
         {
             gameObject.SetActive(false);
-            FindObjectOfType<GM>().SetPoints(FindObjectOfType<GM>().GetPoints() + 1);
+            FindObjectOfType<GM>().SetPoints(FindObjectOfType<GM>().GetPoints() + pointsValue);
         }
 
     }
