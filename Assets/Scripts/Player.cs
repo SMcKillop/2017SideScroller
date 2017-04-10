@@ -12,11 +12,17 @@ public class Player : MonoBehaviour {
     GM _GM;
     private Vector3 startingPosition;
 
+    private Animator anim;
+    public bool air;
+
     // Use this for initialization
     void Start () {
         startingPosition = transform.position;
         rigidbody = GetComponent<Rigidbody2D>();
         _GM = FindObjectOfType<GM>();
+
+        anim = GetComponent<Animator>();
+        air = true;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +34,27 @@ public class Player : MonoBehaviour {
         Vector2 v = rigidbody.velocity;
         v.x = x * speed; 
 
+        //Running animation
+        if(v.x != 0)
+        {
+            anim.SetBool("running", true);
+        }
+        else
+        {
+            anim.SetBool("running", false);
+        }
+
+        //Jumping Animation
+        if (air)
+        {
+            anim.SetBool("air", true);
+        }
+        else
+        {
+            anim.SetBool("air", false);
+        }
+
+        //Space bar control jumping
         if (Input.GetButtonDown("Jump"))
         {
             v.y = jumpSpeed; 
@@ -50,6 +77,16 @@ public class Player : MonoBehaviour {
         _GM.SetLives(_GM.GetLives() - 1);
         transform.position = startingPosition;
         Debug.Log("You are out!");
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        air = false;
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        air = true;
     }
    
 }
