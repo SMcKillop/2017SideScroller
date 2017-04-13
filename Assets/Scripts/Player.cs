@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
     public float speed = 5;
     public float jumpSpeed = 5;
     public float deadZone = -6;
+    public bool canFly = false;
 
     new Rigidbody2D rigidbody;
     GM _GM;
@@ -55,7 +56,7 @@ public class Player : MonoBehaviour {
         }
 
         //Space bar control jumping
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && (v.y == 0 || canFly))
         {
             v.y = jumpSpeed; 
         }
