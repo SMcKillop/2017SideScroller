@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     private Vector3 startingPosition;
 
     private Animator anim;
+    private SpriteRenderer sr;
     public bool air;
 
     // Use this for initialization
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour {
 
         anim = GetComponent<Animator>();
         air = true;
+        sr = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -44,6 +46,11 @@ public class Player : MonoBehaviour {
         {
             anim.SetBool("running", false);
         }
+
+        if (v.x > 0)
+            sr.flipX = false;
+        else if (v.x < 0)
+            sr.flipX = true;
 
         //Jumping Animation
         if (air)
@@ -78,6 +85,11 @@ public class Player : MonoBehaviour {
         _GM.SetLives(_GM.GetLives() - 1);
         transform.position = startingPosition;
         Debug.Log("You are out!");
+    }
+
+    public void powerup()
+    {
+        anim.SetTrigger("powered");
     }
 
     void OnCollisionEnter2D(Collision2D col)
