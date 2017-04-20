@@ -37,7 +37,7 @@ public class Player : MonoBehaviour {
         Vector2 v = rigidbody.velocity;
         v.x = x * speed; 
 
-        //Running animation
+     //Running animation
         if(v.x != 0)
         {
             anim.SetBool("running", true);
@@ -47,13 +47,27 @@ public class Player : MonoBehaviour {
             anim.SetBool("running", false);
         }
 
+    // Running animation in direction player is going
         if (v.x > 0)
+        {
             sr.flipX = false;
+        }
         else if (v.x < 0)
+        {
             sr.flipX = true;
+        }
 
-        //Jumping Animation
-        if (air)
+       
+
+    //Space bar control jumping
+        if (Input.GetButtonDown("Jump") && (v.y == 0 || canFly))
+        {
+            v.y = jumpSpeed; 
+        }
+
+        rigidbody.velocity = v;
+   //Jumping Animation
+        if (v.y !=0)
         {
             anim.SetBool("air", true);
         }
@@ -61,15 +75,6 @@ public class Player : MonoBehaviour {
         {
             anim.SetBool("air", false);
         }
-
-        //Space bar control jumping
-        if (Input.GetButtonDown("Jump") && (v.y == 0 || canFly))
-        {
-            v.y = jumpSpeed; 
-        }
-
-        rigidbody.velocity = v;
-
     //Check for Out
         if(transform.position.y < deadZone)
         {
