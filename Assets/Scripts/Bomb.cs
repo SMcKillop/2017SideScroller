@@ -1,44 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bomb : MonoBehaviour {
+public class Bomb : Weapon {
     //Bomb to kill the enemies, not player.
 
 
     public float blastZone = 5;
     public bool isActive = false;
 
-    private new Rigidbody2D rigidbody2D;
-    private new Collider2D collider2D;
-
-    void Start()
-    {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        collider2D = GetComponent<Collider2D>();
-    }
+    
  
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isActive)
-        {
-            Throw();
-        }
+
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         var player = collision.gameObject.GetComponent<Player>();
-        if (player != null && !isActive)
-        {
-            GetPickedUp(player);
-        }
+       
         if (isActive && player == null)
         {
             Explode();
         }
     }
 
-    public void Throw()
+    
+    public override void Attack()
     {
         this.transform.parent = null;
         rigidbody2D.isKinematic = false;
@@ -46,16 +34,14 @@ public class Bomb : MonoBehaviour {
         collider2D.enabled = true;
     }
 
-    public void GetPickedUp(Player player)
+    public override void GetPickedUp(Player player)
     {
-        Debug.Log("Got picked up");
+        if (isActive)
+        {
+            return;
+        }
         isActive = true;
-        this.transform.parent = player.transform;
-        transform.localScale = new Vector3(.1f, .1f);
-        transform.localPosition = new Vector3(.2f, .2f);
-        rigidbody2D.isKinematic = true;
-        rigidbody2D.velocity = new Vector2();
-        collider2D.enabled = false;
+        base.GetPickedUp(player);
     }
 
     public void Explode()

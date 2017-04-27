@@ -3,11 +3,14 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+    //VARIABLES
     public int health = 100;
     public float speed = 5;
     public float jumpSpeed = 5;
     public float deadZone = -6;
     public bool canFly = false;
+
+    public Weapon currentWeapon;
 
     new Rigidbody2D rigidbody;
     GM _GM;
@@ -16,6 +19,8 @@ public class Player : MonoBehaviour {
     private Animator anim;
     private SpriteRenderer sr;
     public bool air;
+    //END OF VARIABLES
+
 
     // Use this for initialization
     void Start () {
@@ -37,7 +42,7 @@ public class Player : MonoBehaviour {
         Vector2 v = rigidbody.velocity;
         v.x = x * speed; 
 
-     //Running animation
+   //Running animation
         if(v.x != 0)
         {
             anim.SetBool("running", true);
@@ -47,7 +52,7 @@ public class Player : MonoBehaviour {
             anim.SetBool("running", false);
         }
 
-    // Running animation in direction player is going
+   // Running animation in direction player is going
         if (v.x > 0)
         {
             sr.flipX = false;
@@ -75,14 +80,20 @@ public class Player : MonoBehaviour {
         {
             anim.SetBool("air", false);
         }
-    //Check for Out
-        if(transform.position.y < deadZone)
+
+   // Attack with a weapon if you have one.
+        if (Input.GetButtonDown("Fire1") && currentWeapon != null)
+        {
+            currentWeapon.Attack();
+        }
+  //Check for Out
+        if (transform.position.y < deadZone)
         {
             Debug.Log("Current Position " + transform.position.y + "is lower than " + deadZone);
             GetOut();
         }
     
-        //rigidbody.AddForce(new Vector2(x * speed, 0));
+   //rigidbody.AddForce(new Vector2(x * speed, 0));
 	}
 
     public void GetOut()
@@ -97,9 +108,15 @@ public class Player : MonoBehaviour {
         anim.SetTrigger("powered");
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D coll)
     {
         air = false;
+        var weapon = coll.gameObject.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weapon.GetPickedUp(this);
+            currentWeapon = weapon;
+        }
     }
 
     void OnCollisionExit2D(Collision2D col)
