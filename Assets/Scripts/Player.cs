@@ -124,7 +124,7 @@ public class Player : MonoBehaviour {
         air = true;
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+  void OnTriggerEnter2D (Collider2D coll)
     {
         if (coll.CompareTag("Coin"))
         {

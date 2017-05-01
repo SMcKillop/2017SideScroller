@@ -5,9 +5,9 @@ public class Coin : MonoBehaviour {
 
     public int pointsValue;
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D coll)
     {
-        var player = collision.gameObject.GetComponent<Player>();
+        var player = coll.gameObject.GetComponent<Player>();
         if (player != null)
         {
             gameObject.SetActive(false);
