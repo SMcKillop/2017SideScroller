@@ -103,7 +103,7 @@ public class Player : MonoBehaviour {
         Debug.Log("You are out!");
     }
 
-    public void powerup()
+public void powerup()
     {
         anim.SetTrigger("powered");
     }
@@ -122,6 +122,12 @@ public class Player : MonoBehaviour {
     void OnCollisionExit2D(Collision2D col)
     {
         air = true;
+
+        //This is for the moving platform
+        if (col.transform.tag == "MovingPlatform")
+        {
+            transform.parent = null;
+        }
     }
 
   void OnTriggerEnter2D (Collider2D coll)
@@ -132,4 +138,14 @@ public class Player : MonoBehaviour {
         }
     }
    
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "MovingPlatform")
+        {
+            transform.parent = collision.transform;
+        }
+
+    }
+
+
 }
