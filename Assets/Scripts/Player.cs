@@ -117,7 +117,14 @@ public void powerup()
             weapon.GetPickedUp(this);
             currentWeapon = weapon;
         }
+        //HeatSeeking thing
+        var stalker = coll.gameObject.GetComponent<HeatSeeking>();
+        if (stalker != null)
+        {
+            stalker.Die();
+        }
     }
+
 
     void OnCollisionExit2D(Collision2D col)
     {
