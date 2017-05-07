@@ -82,7 +82,7 @@ public class Player : MonoBehaviour {
         }
 
    // Attack with a weapon if you have one.
-        if (Input.GetButtonDown("Fire1") && currentWeapon != null)
+        if (Input.GetKeyDown(KeyCode.M) && currentWeapon != null)
         {
             currentWeapon.Attack();
         }
