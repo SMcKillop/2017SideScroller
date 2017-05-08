@@ -33,7 +33,7 @@ public class GM : MonoBehaviour {
         Debug.Log("Points are now:" + _Points);
         pointsValue.text = _Points.ToString();
 
-        if (_Points == 30)
+        if (_Points == 45)
         {
             youwinSign.SetActive(true);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Level 2");
