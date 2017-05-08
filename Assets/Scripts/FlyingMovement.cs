@@ -5,7 +5,8 @@ public class FlyingMovement : MonoBehaviour {
 
     public Vector3[] waypoints;
     private int waypointIndex = 0;
-
+    public float speed = 5;
+    new Rigidbody2D rigidbody;
 
     void Update()
     {
@@ -15,5 +16,9 @@ public class FlyingMovement : MonoBehaviour {
             waypointIndex++;
             waypointIndex = waypointIndex % waypoints.Length;
         }
+
+        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = new Vector2(speed, rigidbody.velocity.y);
+
     }
 }
