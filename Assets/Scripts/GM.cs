@@ -10,6 +10,7 @@ public class GM : MonoBehaviour {
     public Text livesValue;
     public Text pointsValue;
     public GameObject gameOverSign;
+    public GameObject youwinSign;
 
     public void SetLives(int newValue)
     {
@@ -31,6 +32,12 @@ public class GM : MonoBehaviour {
         _Points = newValue;
         Debug.Log("Points are now:" + _Points);
         pointsValue.text = _Points.ToString();
+
+        if (_Points == 30)
+        {
+            youwinSign.SetActive(true);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Level 2");
+        }
     }
 
     public int GetPoints()
