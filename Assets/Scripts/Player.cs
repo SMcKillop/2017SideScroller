@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour {
     new Rigidbody2D rigidbody;
     GM _GM;
     private Vector3 startingPosition;
+    private List<Weapon> weapons = new List<Weapon>();
 
     private Animator anim;
     private SpriteRenderer sr;
@@ -81,12 +82,17 @@ public class Player : MonoBehaviour {
             anim.SetBool("air", false);
         }
 
-   // Attack with a weapon if you have one.
+        // Attack with a weapon if you have one.
         if (Input.GetKeyDown(KeyCode.X) && currentWeapon != null)
         {
             currentWeapon.Attack();
         }
-  //Check for Out
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            int i = (weapons.IndexOf(currentWeapon) + 1) % weapons.Count;
+            SetCurrentWeapon(weapons[i]);
+        }
+        //Check for Out
         if (transform.position.y < deadZone)
         {
             Debug.Log("Current Position " + transform.position.y + "is lower than " + deadZone);
@@ -106,8 +112,28 @@ public class Player : MonoBehaviour {
 public void powerup()
     {
         anim.SetTrigger("powered");
+        
     }
 
+    public void AddWeapon(Weapon w)
+    {
+        weapons.Add(w);
+        SetCurrentWeapon(w);
+    }
+
+    public void SetCurrentWeapon(Weapon w)
+    {
+        if(currentWeapon != null)
+        {
+            currentWeapon.gameObject.SetActive(false);
+        }
+        currentWeapon = w;
+
+        if (currentWeapon != null)
+        {
+            currentWeapon.gameObject.SetActive(true);
+        }
+    }
     void OnCollisionEnter2D(Collision2D coll)
     {
         air = false;
@@ -115,7 +141,6 @@ public void powerup()
         if (weapon != null)
         {
             weapon.GetPickedUp(this);
-            currentWeapon = weapon;
         }
         //HeatSeeking thing
         var stalker = coll.gameObject.GetComponent<HeatSeeking>();

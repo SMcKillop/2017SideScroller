@@ -34,6 +34,7 @@ public class Weapon : MonoBehaviour
         rigidbody2D.isKinematic = true;
         rigidbody2D.velocity = new Vector2();
         collider2D.enabled = false;
+        player.AddWeapon(this);
     }
 }
 
