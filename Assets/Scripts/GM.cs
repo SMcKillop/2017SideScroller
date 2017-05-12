@@ -36,7 +36,6 @@ public class GM : MonoBehaviour {
         if (_Points == 45)
         {
             youwinSign.SetActive(true);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Level 2");
         }
     }
 
