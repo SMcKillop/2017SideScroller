@@ -29,7 +29,7 @@ public class Weapon : MonoBehaviour
     {
         Debug.Log("Got picked up");
         this.transform.parent = player.transform;
-        transform.localScale = new Vector3(.2f, .2f);
+        transform.localScale = new Vector3(.5f, .5f);
         transform.localPosition = new Vector3(.2f, .2f);
         rigidbody2D.isKinematic = true;
         rigidbody2D.velocity = new Vector2();
